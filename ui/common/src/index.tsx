@@ -18,6 +18,7 @@ export {
   formatProfitLabel,
   formatTAGName,
   getItemDescription,
+  getRedHatHighlight,
   getMainTag,
   prettifyNumber,
   sortObjectByValue,

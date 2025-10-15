@@ -474,6 +474,18 @@ impl From<legacy::LandscapeData> for LandscapeData {
                         if summary != ItemSummary::default() {
                             item.summary = Some(summary);
                         }
+
+                        if let Some(redhat) = extra.redhat {
+                            let redhat_info = ItemRedHat {
+                                supported: redhat.supported,
+                                product: redhat.product,
+                                color: redhat.color,
+                                description: redhat.description,
+                            };
+                            if redhat_info != ItemRedHat::default() {
+                                item.redhat = Some(redhat_info);
+                            }
+                        }
                     }
 
                     item.set_id();
@@ -651,6 +663,9 @@ pub struct Item {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub repositories: Option<Vec<Repository>>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub redhat: Option<ItemRedHat>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slack_url: Option<String>,
@@ -845,6 +860,22 @@ pub struct ItemSummary {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub use_case: Option<String>,
+}
+
+/// Red Hat specific metadata attached to an item.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+pub struct ItemRedHat {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub supported: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product: Option<String>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color: Option<String>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
 }
 
 /// Organization information collected from Crunchbase.

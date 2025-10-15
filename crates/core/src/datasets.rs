@@ -63,7 +63,7 @@ impl Datasets {
 /// the initial page and power the features available on it.
 pub mod base {
     use crate::{
-        data::{self, AdditionalCategory, Category, CategoryName, ItemFeatured, LandscapeData},
+        data::{self, AdditionalCategory, Category, CategoryName, ItemFeatured, ItemRedHat, LandscapeData},
         games::LandscapeGames,
         guide::LandscapeGuide,
         settings::{
@@ -239,6 +239,9 @@ pub mod base {
         pub oss: Option<bool>,
 
         #[serde(skip_serializing_if = "Option::is_none")]
+        pub redhat: Option<ItemRedHat>,
+
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub tag: Option<Vec<String>>,
     }
 
@@ -254,6 +257,7 @@ pub mod base {
                 maturity: data_item.maturity.clone(),
                 subcategory: data_item.subcategory.clone(),
                 oss: data_item.oss,
+                redhat: data_item.redhat.clone(),
                 tag: data_item.tag.clone(),
             }
         }

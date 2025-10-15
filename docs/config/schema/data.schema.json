@@ -477,6 +477,37 @@
                               "https://www.reddit.com/url"
                             ]
                           },
+                          "redhat": {
+                            "title": "Red Hat specific metadata",
+                            "type": "object",
+                            "properties": {
+                              "supported": {
+                                "title": "Indicates whether Red Hat supports this item",
+                                "type": "boolean",
+                                "default": false
+                              },
+                              "product": {
+                                "title": "Name of the Red Hat product providing support",
+                                "type": "string",
+                                "examples": [
+                                  "Red Hat Ansible Automation Platform"
+                                ]
+                              },
+                              "color": {
+                                "title": "Color used to highlight Red Hat supported items",
+                                "description": "Use any valid CSS color value (for example, a hex code)",
+                                "type": "string",
+                                "examples": [
+                                  "#ee0000"
+                                ]
+                              },
+                              "description": {
+                                "title": "Summary of the Red Hat product support",
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": false
+                          },
                           "slack_url": {
                             "title": "Slack URL",
                             "type": "string",

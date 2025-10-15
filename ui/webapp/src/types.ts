@@ -81,11 +81,19 @@ export interface BaseItem {
   maturity?: string;
   tag?: string[];
   additional_categories?: AdditionalCategory[];
+  redhat?: RedHatInfo;
 }
 
 export interface Featured {
   label?: string;
   order?: number;
+}
+
+export interface RedHatInfo {
+  supported?: boolean;
+  product?: string;
+  color?: string;
+  description?: string;
 }
 
 export interface Item extends BaseItem {

@@ -8,6 +8,7 @@ import {
   Image,
   MaturityBadge,
   prettifyNumber,
+  getRedHatHighlight,
   SVGIcon,
   SVGIconKind,
 } from 'common';
@@ -30,6 +31,8 @@ const Card = (props: Props) => {
   const [description, setDescription] = createSignal<string>();
   const [stars, setStars] = createSignal<number>();
   const [primaryRepoUrl, setPrimaryRepoUrl] = createSignal<string>();
+  const redHatInfo = () => (props.item.redhat && props.item.redhat.supported ? props.item.redhat : undefined);
+  const redHatHighlight = () => getRedHatHighlight(props.item);
 
   onMount(() => {
     setDescription(getItemDescription(props.item));
@@ -147,6 +150,28 @@ const Card = (props: Props) => {
         </div>
       </div>
       <div class={`my-3 text-muted ${styles.description}`}>{description()}</div>
+      <Show when={redHatInfo()}>
+        {(redHat) => {
+          const highlight = redHatHighlight();
+          return (
+            <div
+              class={`d-flex flex-column gap-1 mb-3 ${styles.redHatSection}`}
+              style={{
+                'border-left-color': highlight?.color,
+                'background-color': highlight?.backgroundColor,
+              }}
+            >
+              <div class={`text-uppercase fw-semibold ${styles.redHatLabel}`}>Red Hat</div>
+              <Show when={redHat().product}>
+                <div class={styles.redHatProduct}>{redHat().product}</div>
+              </Show>
+              <Show when={redHat().description}>
+                <div class={`text-muted ${styles.redHatDescription}`}>{redHat().description}</div>
+              </Show>
+            </div>
+          );
+        }}
+      </Show>
       <div
         class={`d-flex flex-row justify-content-between align-items-baseline text-muted mt-auto pt-1 ${styles.additionalInfo}`}
       >

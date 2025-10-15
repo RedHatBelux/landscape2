@@ -7,7 +7,7 @@ import { createEffect, createSignal, For, Match, on, Show, Switch } from 'solid-
 import { css } from 'solid-styled-components';
 
 import { AdditionalCategory, Item, SecurityAudit, SVGIconKind } from '../types/types';
-import { cutString, getItemDescription } from '../utils';
+import { cutString, getItemDescription, getRedHatHighlight } from '../utils';
 import { formatProfitLabel } from '../utils/formatProfitLabel';
 import { formatSummaryField } from '../utils/formatSummaryField';
 import { prettifyNumber } from '../utils/prettifyNumber';
@@ -98,6 +98,28 @@ const Description = css`
   font-size: 0.9rem;
 `;
 
+const RedHatSection = css`
+  border-left: 4px solid #ee0000;
+  background-color: rgba(238, 0, 0, 0.12);
+  padding: 0.85rem 1rem;
+`;
+
+const RedHatLabel = css`
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--bs-gray-600);
+`;
+
+const RedHatProduct = css`
+  font-size: 0.95rem;
+  font-weight: 600;
+`;
+
+const RedHatDescription = css`
+  font-size: 0.85rem;
+  color: var(--bs-gray-700);
+`;
+
 const OtherLink = css`
   max-width: calc(100% - 2rem - 15px);
   font-size: 0.65rem !important;
@@ -185,6 +207,9 @@ const ClomonitorReport = css`
 export const ItemModalMobileContent = (props: Props) => {
   const itemInfo = () => props.item;
   const [description, setDescription] = createSignal<string>();
+  const redHatInfo = () =>
+    itemInfo() && !isUndefined(itemInfo()!.redhat) && itemInfo()!.redhat!.supported ? itemInfo()!.redhat : undefined;
+  const redHatHighlight = () => getRedHatHighlight(itemInfo());
 
   createEffect(
     on(itemInfo, () => {
@@ -245,6 +270,28 @@ export const ItemModalMobileContent = (props: Props) => {
 
         {/* Description */}
         <div class={`mt-4 mb-3 text-muted ${Description}`}>{description()}</div>
+        <Show when={redHatInfo()}>
+          {(redHat) => {
+            const highlight = redHatHighlight();
+            return (
+              <div
+                class={`mb-3 d-flex flex-column gap-1 ${RedHatSection}`}
+                style={{
+                  'border-left-color': highlight?.color,
+                  'background-color': highlight?.backgroundColor,
+                }}
+              >
+                <div class={`text-uppercase fw-semibold ${RedHatLabel}`}>Red Hat</div>
+                <Show when={redHat().product}>
+                  <div class={RedHatProduct}>{redHat().product}</div>
+                </Show>
+                <Show when={redHat().description}>
+                  <div class={RedHatDescription}>{redHat().description}</div>
+                </Show>
+              </div>
+            );
+          }}
+        </Show>
         <div class={`mb-2 ${Section}`}>
           <div class="text-truncate">
             <small class="text-uppercase fw-semibold pe-1">Category:</small>

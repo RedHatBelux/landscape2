@@ -178,6 +178,7 @@ pub(super) struct ItemExtra {
     pub parent_project: Option<String>,
     pub pinterest_url: Option<String>,
     pub reddit_url: Option<String>,
+    pub redhat: Option<RedHatInfo>,
     pub slack_url: Option<String>,
     pub specification: Option<bool>,
     pub stack_overflow_url: Option<String>,
@@ -193,6 +194,15 @@ pub(super) struct ItemExtra {
     pub training_certifications: Option<String>,
     pub training_type: Option<String>,
     pub youtube_url: Option<String>,
+}
+
+/// Red Hat specific metadata for an item.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+pub(super) struct RedHatInfo {
+    pub supported: Option<bool>,
+    pub product: Option<String>,
+    pub color: Option<String>,
+    pub description: Option<String>,
 }
 
 /// Landscape item repository.

@@ -7,7 +7,7 @@ import { createEffect, createSignal, For, Match, on, Show, Switch } from 'solid-
 import { css } from 'solid-styled-components';
 
 import { AdditionalCategory, Item, Repository, SecurityAudit, SVGIconKind } from '../types/types';
-import { cutString, getItemDescription } from '../utils';
+import { cutString, getItemDescription, getRedHatHighlight } from '../utils';
 import { formatProfitLabel } from '../utils/formatProfitLabel';
 import { formatSummaryField } from '../utils/formatSummaryField';
 import { formatTAGName } from '../utils/formatTAGName';
@@ -73,6 +73,28 @@ const Name = css`
 
 const Description = css`
   font-size: 0.9rem !important;
+`;
+
+const RedHatSection = css`
+  border-left: 4px solid #ee0000;
+  background-color: rgba(238, 0, 0, 0.12);
+  padding: 1rem 1.25rem;
+`;
+
+const RedHatLabel = css`
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--bs-gray-600);
+`;
+
+const RedHatProduct = css`
+  font-size: 1rem;
+  font-weight: 600;
+`;
+
+const RedHatDescription = css`
+  font-size: 0.9rem;
+  color: var(--bs-gray-700);
 `;
 
 const OtherLink = css`
@@ -216,6 +238,9 @@ export const ItemModalContent = (props: Props) => {
   const itemInfo = () => props.item;
   const [description, setDescription] = createSignal<string>();
   const [primaryRepo, setPrimaryRepo] = createSignal<Repository>();
+  const redHatInfo = () =>
+    itemInfo() && !isUndefined(itemInfo()!.redhat) && itemInfo()!.redhat!.supported ? itemInfo()!.redhat : undefined;
+  const redHatHighlight = () => getRedHatHighlight(itemInfo());
 
   createEffect(
     on(itemInfo, () => {
@@ -464,6 +489,29 @@ export const ItemModalContent = (props: Props) => {
         </div>
         {/* Description */}
         <div class={`mt-4 text-muted ${Description}`}>{description()}</div>
+
+        <Show when={redHatInfo()}>
+          {(redHat) => {
+            const highlight = redHatHighlight();
+            return (
+              <div
+                class={`mt-4 d-flex flex-column gap-1 ${RedHatSection}`}
+                style={{
+                  'border-left-color': highlight?.color,
+                  'background-color': highlight?.backgroundColor,
+                }}
+              >
+                <div class={`text-uppercase fw-semibold ${RedHatLabel}`}>Red Hat</div>
+                <Show when={redHat().product}>
+                  <div class={RedHatProduct}>{redHat().product}</div>
+                </Show>
+                <Show when={redHat().description}>
+                  <div class={RedHatDescription}>{redHat().description}</div>
+                </Show>
+              </div>
+            );
+          }}
+        </Show>
 
         {/* Other links */}
         <Show when={!isUndefined(itemInfo()!.other_links)}>

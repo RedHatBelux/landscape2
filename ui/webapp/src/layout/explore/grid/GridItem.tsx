@@ -1,4 +1,4 @@
-import { getItemDescription, Image, Loading } from 'common';
+import { getItemDescription, getRedHatHighlight, Image, Loading } from 'common';
 import isUndefined from 'lodash/isUndefined';
 import { createEffect, createSignal, on, onCleanup, Show } from 'solid-js';
 
@@ -43,6 +43,21 @@ const GridItem = (props: Props) => {
   const touchDevice = () => isTouchDevice();
   // Only show dropdown on hover if it's not a touch device and activeDropdown prop is true
   const activeDropdown = () => (touchDevice() ? false : props.activeDropdown);
+  const highlight = () => getRedHatHighlight(props.item);
+  const cardStyle = () => {
+    const style: { [key: string]: string } = {};
+    if (props.item.featured && props.item.featured.label && props.borderColor) {
+      style.border = `2px solid ${props.borderColor}`;
+    }
+    const redHat = highlight();
+    if (redHat) {
+      style['background-color'] = redHat.backgroundColor;
+      if (isUndefined(props.item.featured) || isUndefined(props.item.featured.label)) {
+        style['border-color'] = redHat.color;
+      }
+    }
+    return style;
+  };
 
   createEffect(
     on(fullDataReady, () => {
@@ -119,7 +134,7 @@ const GridItem = (props: Props) => {
       fallback={
         <div
           role="listitem"
-          style={props.item.featured && props.item.featured.label ? { border: `2px solid ${props.borderColor}` } : {}}
+          style={cardStyle()}
           class={`card rounded-0 position-relative p-0 ${styles.card}`}
           classList={{
             bigCard: !isUndefined(props.item.featured),
@@ -155,7 +170,7 @@ const GridItem = (props: Props) => {
     >
       <div
         role="listitem"
-        style={props.item.featured && props.item.featured.label ? { border: `2px solid ${props.borderColor}` } : {}}
+        style={cardStyle()}
         class={`card rounded-0 position-relative p-0 ${styles.card}`}
         classList={{
           bigCard: !isUndefined(props.item.featured),

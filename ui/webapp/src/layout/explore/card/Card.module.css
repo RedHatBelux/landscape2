@@ -91,3 +91,22 @@
   font-size: 80% !important;
   line-height: 0.75rem;
 }
+
+.redHatSection {
+  border-left: 4px solid #ee0000;
+  background-color: rgba(238, 0, 0, 0.12);
+  padding: 0.75rem 0.85rem;
+}
+
+.redHatLabel {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+.redHatProduct {
+  font-size: 0.95rem;
+}
+
+.redHatDescription {
+  font-size: 0.8rem;
+}
