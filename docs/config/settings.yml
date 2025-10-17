@@ -95,7 +95,7 @@ categories:
 #   color7: <COLOR7>  # Borders, shadows and options boxes in games
 #
 colors:
-  color1: "rgba(200, 16, 46, 1)"
+  color1: "rgba(163, 0, 1, 1)"
   color2: "rgba(217, 73, 97, 1)"
   color3: "rgba(179, 31, 64, 1)"
   color4: "rgba(76, 12, 27, 0.85)"
@@ -260,7 +260,7 @@ header:
     github: "https://github.com/RedHatBelux/landscape"
   logo: "https://raw.githubusercontent.com/RedHatBelux/landscape/refs/heads/master/redhatcncf.svg"
   motd: |
-    "Welcome to the Red Hat CNCF Landscape!"
+    "Welcome to the UNOFFICIAL Red Hat CNCF Map. This is WORK IN PROGRESS and not Red Hat approved."
 
 # Hide organization section in projects (optional)
 #
