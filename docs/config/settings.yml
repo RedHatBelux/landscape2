@@ -99,8 +99,8 @@ colors:
   color2: "rgba(217, 73, 97, 1)"
   color3: "rgba(179, 31, 64, 1)"
   color4: "rgba(76, 12, 27, 0.85)"
-  color5: "rgba(216, 160, 165, 1)"
-  color6: "rgba(202, 139, 145, 1)"
+  color5: "rgba(184, 76, 82, 1)"
+  color6: "rgba(160, 58, 63, 1)"
   color7: "rgba(153, 36, 53, 1)"
 
 # End user (optional)
