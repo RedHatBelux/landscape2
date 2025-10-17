@@ -257,7 +257,7 @@ groups:
       - Wasm
   - name: CNAI
     categories:
-      - Cloud Native AI
+      - CNAI
 
 # Header (optional)
 #
