@@ -110,3 +110,8 @@
 .redHatDescription {
   font-size: 0.8rem;
 }
+
+.redHatSupport {
+  font-size: 0.75rem;
+  color: var(--bs-gray-600);
+}

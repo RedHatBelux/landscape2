@@ -31,7 +31,7 @@ const Card = (props: Props) => {
   const [description, setDescription] = createSignal<string>();
   const [stars, setStars] = createSignal<number>();
   const [primaryRepoUrl, setPrimaryRepoUrl] = createSignal<string>();
-  const redHatInfo = () => (props.item.redhat && props.item.redhat.supported ? props.item.redhat : undefined);
+  const redHatInfo = () => (props.item.redhat ? props.item.redhat : undefined);
   const redHatHighlight = () => getRedHatHighlight(props.item);
 
   onMount(() => {
@@ -162,6 +162,11 @@ const Card = (props: Props) => {
               }}
             >
               <div class={`text-uppercase fw-semibold ${styles.redHatLabel}`}>Red Hat</div>
+              <Show when={!isUndefined(redHat().supported)}>
+                <div class={`text-muted ${styles.redHatSupport}`}>
+                  {redHat().supported ? 'Supported by Red Hat' : 'Not currently supported by Red Hat'}
+                </div>
+              </Show>
               <Show when={redHat().product}>
                 <div class={styles.redHatProduct}>{redHat().product}</div>
               </Show>

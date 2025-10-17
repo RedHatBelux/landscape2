@@ -110,6 +110,11 @@ const RedHatLabel = css`
   color: var(--bs-gray-600);
 `;
 
+const RedHatSupport = css`
+  font-size: 0.75rem;
+  color: var(--bs-gray-600);
+`;
+
 const RedHatProduct = css`
   font-size: 0.95rem;
   font-weight: 600;
@@ -207,8 +212,7 @@ const ClomonitorReport = css`
 export const ItemModalMobileContent = (props: Props) => {
   const itemInfo = () => props.item;
   const [description, setDescription] = createSignal<string>();
-  const redHatInfo = () =>
-    itemInfo() && !isUndefined(itemInfo()!.redhat) && itemInfo()!.redhat!.supported ? itemInfo()!.redhat : undefined;
+  const redHatInfo = () => (itemInfo() && !isUndefined(itemInfo()!.redhat) ? itemInfo()!.redhat : undefined);
   const redHatHighlight = () => getRedHatHighlight(itemInfo());
 
   createEffect(
@@ -282,6 +286,11 @@ export const ItemModalMobileContent = (props: Props) => {
                 }}
               >
                 <div class={`text-uppercase fw-semibold ${RedHatLabel}`}>Red Hat</div>
+                <Show when={!isUndefined(redHat().supported)}>
+                  <div class={RedHatSupport}>
+                    {redHat().supported ? 'Supported by Red Hat' : 'Not currently supported by Red Hat'}
+                  </div>
+                </Show>
                 <Show when={redHat().product}>
                   <div class={RedHatProduct}>{redHat().product}</div>
                 </Show>

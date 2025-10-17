@@ -32,7 +32,7 @@ const hexToRgba = (hex: string, alpha: number): string => {
 };
 
 export const getRedHatHighlight = (item?: BaseItem | null): RedHatHighlight | undefined => {
-  if (!item || !item.redhat || !item.redhat.supported) {
+  if (!item || !item.redhat) {
     return undefined;
   }
 
