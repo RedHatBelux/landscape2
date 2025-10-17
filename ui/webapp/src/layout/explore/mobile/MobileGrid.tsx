@@ -1,4 +1,4 @@
-import { Image, useBreakpointDetect } from 'common';
+import { getRedHatHighlight, Image, useBreakpointDetect } from 'common';
 import isUndefined from 'lodash/isUndefined';
 import { For, Show } from 'solid-js';
 
@@ -47,10 +47,21 @@ const MobileGrid = (props: Props) => {
         >
           <For each={items()}>
             {(item: BaseItem | Item) => {
+              const style: { [key: string]: string } = {};
+              if (item.featured && item.featured.label) {
+                style.border = `2px solid ${props.bgColor}`;
+              }
+              const highlight = getRedHatHighlight(item);
+              if (highlight) {
+                style['background-color'] = highlight.backgroundColor;
+                if (!item.featured || !item.featured.label) {
+                  style['border-color'] = highlight.color;
+                }
+              }
               return (
                 <div
                   role="listitem"
-                  style={item.featured && item.featured.label ? { border: `2px solid ${props.bgColor}` } : {}}
+                  style={style}
                   class={`card rounded-0 position-relative p-0 ${styles.card}`}
                   classList={{
                     whithoutRepo: isUndefined(item.oss) || !item.oss,
