@@ -11,7 +11,7 @@
 #
 # foundation: <FOUNDATION_NAME>
 #
-foundation: CNCF
+foundation: Red Hat CNCF
 
 # Url (required)
 #
@@ -278,7 +278,7 @@ hide_organization_section_in_projects: false
 #   open_graph: <OPEN_GRAPH_IMAGE_URL>
 #
 images:
-  favicon: "https://raw.githubusercontent.com/cncf/artwork/master/other/cncf-landscape/icon/color/cncf-landscape-icon-color.png"
+  favicon: "https://www.redhat.com/favicon.ico"
   open_graph: "https://landscape.cncf.io/images/social.jpg"
 
 # Logos viewbox (optional)
